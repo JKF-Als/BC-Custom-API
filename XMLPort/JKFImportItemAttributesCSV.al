@@ -38,14 +38,24 @@ xmlport 50290 "Import Item Attributes CSV"
                     Evaluate(AttrID, CsvAttributeID);
                     Evaluate(AttrValID, CsvAttributeValueID);
 
-                    // Initialize and insert the mapping record
-                    ItemAttrMapping.Init();
-                    ItemAttrMapping."Table ID" := TblID;
-                    ItemAttrMapping."No." := CsvItemNo;
-                    ItemAttrMapping."Item Attribute ID" := AttrID;
-                    ItemAttrMapping."Item Attribute Value ID" := AttrValID;
+                    //Check if mapping exists already.
+                    if ItemAttrMapping.Get(TblID, CsvItemNo, AttrID) then begin
 
-                    if ItemAttrMapping.Insert() then; // Silent insert to ignore duplicates if they exist 
+                        //If it exists, update it with the new Value ID from the CSV
+                        ItemAttrMapping."Item Attribute Value ID" := AttrValID;
+                        ItemAttrMapping.Modify();
+
+                    end else begin
+
+                        //If it does not exist, insert a brand new record
+                        ItemAttrMapping.Init();
+                        ItemAttrMapping."Table ID" := TblID;
+                        ItemAttrMapping."No." := CsvItemNo;
+                        ItemAttrMapping."Item Attribute ID" := AttrID;
+                        ItemAttrMapping."Item Attribute Value ID" := AttrValID;
+                        ItemAttrMapping.Insert();
+
+                    end;
 
                     // Skip the dummy Integer table insertion
                     currXMLport.Skip();
