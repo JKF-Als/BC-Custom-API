@@ -1,0 +1,31 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Publish: DK_Test",
+      "type": "al",
+      "request": "launch",
+      "environmentType": "Sandbox",
+      "environmentName": "DK_Test",
+      "tenant": "67c998ad-883d-4441-8709-30a73ec72cb6",
+      "startupObjectId": 50200,
+      "startupObjectType": "Page",
+      "breakOnError": "All",
+      "schemaUpdateMode": "Synchronize",
+      "launchBrowser": true
+    },
+    {
+      "name": "Publish: DK_Production",
+      "type": "al",
+      "request": "launch",
+      "environmentType": "Production",
+      "environmentName": "DK_Production",
+      "tenant": "67c998ad-883d-4441-8709-30a73ec72cb6",
+      "startupObjectId": 50200,
+      "startupObjectType": "Page",
+      "breakOnError": "All",
+      "schemaUpdateMode": "Synchronize",
+      "launchBrowser": true
+    },
+  ]
+}

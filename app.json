@@ -1,0 +1,48 @@
+{
+  "id": "5cf3c74d-0eaf-41e7-b8d7-6a6bfd90f3a4",
+  "name": "JKF Custom APIs",
+  "publisher": "JKF",
+  "version": "1.0.0.12  ",
+  "brief": "Custom API pages for JKF",
+  "description": "Custom Business Central API pages for JKF integrations",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "",
+  "logo": "",
+  "dependencies": [
+    {        
+      "id": "d58a9764-e042-4aef-8bb3-c7c9dfb21668",
+      "name": "EV Mail",
+      "publisher": "Elbek & Vejrup A/S",
+      "version": "10004.12.3.2800"
+    },
+    {
+      "id": "0a7c83bd-041f-4a6c-ad48-e1fb3a772805",
+      "name": "JKF Customizations",
+      "publisher": "Elbek & Vejrup A/S",
+      "version": "10001.1.202660.2503"
+    },
+        {
+      "id": "d4f68434-d5ae-4831-8738-5a6c20cec6e6",
+      "name": "EV Extended Job Queue",
+      "publisher": "Elbek & Vejrup A/S",
+      "version": "10004.6.1.2800"
+    }
+  ],
+  "screenshots": [],
+  "platform": "1.0.0.0",
+  "application": "26.0.0.0",
+  "idRanges": [
+    {
+      "from": 50200,
+      "to": 50399
+    }
+  ],
+  "resourceExposurePolicy": {
+    "allowDebugging": true,
+    "allowDownloadingSource": true,
+    "includeSourceInSymbolFile": true
+  },
+  "runtime": "15.0"
+}
