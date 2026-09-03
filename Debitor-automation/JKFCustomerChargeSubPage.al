@@ -55,6 +55,19 @@ page 50223 "JKF Customer Charge API"
                 {
                     Caption = 'Item Charge %';
                 }
+                field(InsertOnSalesQuote; Rec."Insert on Sales Quote")
+                {
+                    Caption = 'Insert on Sales Quote';
+                }
+                field(InsertOnSalesOrder; Rec."Insert on Sales Orders")
+                {
+                    Caption = 'Insert on Sales Order';
+                }
+                field(InsertOnSalesInvoice; Rec."Insert on Sales Invoices")
+                {
+                    Caption = 'Insert on Sales Invoice';
+                }
+
             }
         }
     }
@@ -74,6 +87,10 @@ page 50223 "JKF Customer Charge API"
             Rec."G/L Account No." := '100740';
 
         Rec."Item Charge %" := 2.46;
+
+        Rec."Insert on Sales Quote" := true;
+        Rec."Insert on Sales Orders" := true;
+        Rec."Insert on Sales Invoices" := true;
 
         exit(true);
     end;
