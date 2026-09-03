@@ -2,7 +2,7 @@
   "id": "5cf3c74d-0eaf-41e7-b8d7-6a6bfd90f3a4",
   "name": "JKF Custom APIs",
   "publisher": "JKF",
-  "version": "1.0.0.15",
+  "version": "1.0.0.17",
   "brief": "Custom API pages for JKF",
   "description": "Custom Business Central API pages for JKF integrations",
   "privacyStatement": "",
@@ -11,7 +11,7 @@
   "url": "",
   "logo": "",
   "dependencies": [
-    {        
+    {
       "id": "d58a9764-e042-4aef-8bb3-c7c9dfb21668",
       "name": "EV Mail",
       "publisher": "Elbek & Vejrup A/S",
@@ -23,7 +23,7 @@
       "publisher": "Elbek & Vejrup A/S",
       "version": "10001.1.202660.2503"
     },
-        {
+    {
       "id": "d4f68434-d5ae-4831-8738-5a6c20cec6e6",
       "name": "EV Extended Job Queue",
       "publisher": "Elbek & Vejrup A/S",

@@ -50,6 +50,17 @@ page 50200 "JKF Customer EVMP API"
                 {
                     Caption = 'Bank Account No. (print) EVAS';
                 }
+
+                field(ShippingAgentCode; Rec."Shipping Agent Code")
+                {
+                    Caption = 'Shipping Agent Code';
+                }
+
+                field(ShippingAgentServiceCode; Rec."Shipping Agent Service Code")
+                {
+                    Caption = 'Shipping Agent Service Code';
+                }
+
                 // Subpage for Customer Charges :: See JKFCustomerChargeSubPage.al
                 part(customerCharges; "JKF Customer Charge API")
                 {
@@ -57,6 +68,13 @@ page 50200 "JKF Customer EVMP API"
                     EntityName = 'customerCharge';
                     EntitySetName = 'customerCharges';
                     SubPageLink = "Customer No." = field("No.");
+                }
+                part(customerDimensions; "JKF Customer Dimension API")
+                {
+                    Caption = 'Customer Dimensions';
+                    EntityName = 'customerDimension';
+                    EntitySetName = 'customerDimensions';
+                    SubPageLink = "Table ID" = const(18), "No." = field("No.");
                 }
             }
         }
