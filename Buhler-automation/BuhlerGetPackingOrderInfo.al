@@ -40,7 +40,30 @@ page 50220 "Buhler Get Packing Order Info"
                 {
                     Caption = 'Delivery Country.';
                 }
+                // New field bound to the global variable instead of a table field
+                field(shipToCountryRegionName; ShipToCountryRegionName)
+                {
+                    Caption = 'Delivery Country Name';
+                    Editable = false;
+                }
             }
         }
     }
+
+    // Declare a global variable to hold the resolved name
+    var
+        ShipToCountryRegionName: Text[50];
+
+    // Look up the country name every time a record is read
+    trigger OnAfterGetRecord()
+    var
+        CountryRegion: Record "Country/Region";
+    begin
+        // Clear the variable to prevent residual data from previous records
+        Clear(ShipToCountryRegionName);
+
+        // If a matching Country/Region record exists, grab its Name
+        if CountryRegion.Get(Rec."Ship-to Country/Region Code") then
+            ShipToCountryRegionName := CountryRegion.Name;
+    end;
 }
