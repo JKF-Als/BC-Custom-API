@@ -1,4 +1,4 @@
-page 50220 "JKF German Item List"
+page 50225 "JKF German Item List"
 {
     PageType = List;
     SourceTable = "Item Translation";
