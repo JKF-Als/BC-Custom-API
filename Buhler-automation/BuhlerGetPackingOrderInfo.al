@@ -34,6 +34,8 @@ page 50220 "Buhler Get Packing Order Info"
                 }
                 field(barcode_EVAS; Rec.Barcode_EVAS) { Caption = 'Barcode EVAS'; }
 
+                field("PlannedShipmentDate_EVAS"; Rec."Planned Shipment Date_EVAS") { Caption = 'Planned Shipment Date'; }
+
                 // --- NEW: The nested array of Packing Notes ---
                 part(packingNotes; "Buhler Packing Note Sub API")
                 {
