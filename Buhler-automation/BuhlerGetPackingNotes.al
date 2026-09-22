@@ -1,7 +1,7 @@
 page 50222 "Buhler Packing Note Sub API"
 {
     PageType = API;
-    APIPublisher = 'custom';
+    APIPublisher = 'jkf';
     APIGroup = 'integration';
     APIVersion = 'v1.0';
     EntityName = 'packingNote';

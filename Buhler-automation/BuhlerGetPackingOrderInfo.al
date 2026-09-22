@@ -1,7 +1,7 @@
 page 50220 "Buhler Get Packing Order Info"
 {
     PageType = API;
-    APIPublisher = 'custom';
+    APIPublisher = 'jkf';
     APIGroup = 'integration';
     APIVersion = 'v1.0';
     EntityName = 'buhlerGetPackingOrderInfo';
