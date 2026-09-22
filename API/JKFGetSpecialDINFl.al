@@ -9,25 +9,24 @@ query 50249 "Special Items Query API"
 
     elements
     {
-        dataitem(Item; Item)
+        dataitem(Production_BOM_Header; "Production BOM Header")
         {
-            column(itemNo; "No.") { }
-            column(description; Description) { }
-            // Add other item fields you need
+            column(bomNo; "No.") { }
+            column(bomDescription; Description) { }
             column(description2; "Description 2") { }
+            column(status; Status) { }
 
-            dataitem(Extended_Text_Line; "Extended Text Line")
+            dataitem(Production_BOM_Line; "Production BOM Line")
             {
-                // 1. Link the tables together using only field names
-                DataItemLink = "No." = Item."No.";
+                // Link the line to the header
+                DataItemLink = "Production BOM No." = Production_BOM_Header."No.";
 
-                // 2. Apply the constant filter for the table name
-                DataItemTableFilter = "Table Name" = const(Item);
-
+                // Only look at lines that are actual Items (not machine centers or sub-BOMs)
+                DataItemTableFilter = Type = const(Item);
                 SqlJoinType = InnerJoin;
 
-                column(languageCode; "Language Code") { }
-                column(textLine; Text) { }
+                column(componentItemNo; "No.") { }
+                column(quantityPer; "Quantity per") { }
             }
         }
     }
