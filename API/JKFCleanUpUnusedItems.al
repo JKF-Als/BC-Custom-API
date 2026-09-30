@@ -44,7 +44,7 @@ page 50241 "Unused Items API"
     begin
         // Item No. is a Code field, so its value is stored in uppercase.
         Letters := 'ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ';
-        ItemNoFilter := '<>E????&<>E_*&<>*ECON*';
+        ItemNoFilter := '<>P*&<>E????&<>E_*&<>*ECON*';
         for LetterIndex := 1 to StrLen(Letters) do begin
             Letter := CopyStr(Letters, LetterIndex, 1);
             ItemNoFilter += '&<>*6' + Letter + '*';
