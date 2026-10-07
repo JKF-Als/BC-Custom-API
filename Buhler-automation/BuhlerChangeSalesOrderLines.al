@@ -159,7 +159,12 @@ page 50203 "Buhler Change S Order Lines"
     ): Integer
     var
         SalesLine: Record "Sales Line";
+        DeclarationLineNo: Integer;
+        NextLineNo: Integer;
+        HasDeclaration: Boolean;
     begin
+        SalesLine.LockTable();
+        SalesLine.SetCurrentKey("Document Type", "Document No.", "Line No.");
         SalesLine.SetRange(
             "Document Type",
             SalesLine."Document Type"::Order);
@@ -167,6 +172,31 @@ page 50203 "Buhler Change S Order Lines"
         SalesLine.SetRange(
             "Document No.",
             SalesOrderNo);
+
+        SalesLine.SetRange(Type, SalesLine.Type::" ");
+        SalesLine.SetFilter("No.", 'S-ERK|EUROPA|OPRINDELSE|GB / CANADA|KAPPA|SWISCA|FRAGT INFO');
+
+        HasDeclaration := SalesLine.FindFirst();
+        if HasDeclaration then
+            DeclarationLineNo := SalesLine."Line No.";
+
+        SalesLine.SetRange(Type);
+        SalesLine.SetRange("No.");
+
+        if HasDeclaration then begin
+            SalesLine.SetFilter("Line No.", '<%1', DeclarationLineNo);
+            NextLineNo := 1;
+            if SalesLine.FindLast() then
+                NextLineNo := SalesLine."Line No." + 1;
+
+            if NextLineNo >= DeclarationLineNo then
+                Error(
+                    'Der er ikke plads til en ny linje foran deklarationslinje %1 på salgsordre %2.',
+                    DeclarationLineNo,
+                    SalesOrderNo);
+
+            exit(NextLineNo);
+        end;
 
         if SalesLine.FindLast() then
             exit(SalesLine."Line No." + 10000);
