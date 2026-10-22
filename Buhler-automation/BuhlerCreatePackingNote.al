@@ -491,6 +491,9 @@ page 50209 "Buhler Create Packing Note"
         PackingNoteHeader."External Document No." :=
             SalesHeader."External Document No.";
 
+        PackingNoteHeader.Marking :=
+            SalesHeader.Marking_EVAS;
+
 
         // -----------------------------------------------------
         // Ship-to
