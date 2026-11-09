@@ -4,6 +4,10 @@ permissionset 50399 "JKF CUSTOM APIS"
     Caption = 'JKF Custom APIs';
 
     Permissions =
+        tabledata Item = R,
+        tabledata "Item Variant" = R,
+        page "Custom Item API" = X,
+        page "JKF Item Variant API" = X,
         tabledata "Buhler Source Document Buffer" = RIMD,
         tabledata "Buhler Create Pick Buffer" = RIMD,
         tabledata "Buhler Register Pick Buffer" = RIMD,
