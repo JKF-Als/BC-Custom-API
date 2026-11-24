@@ -23,6 +23,64 @@ tableextension 50266 "JKF Cr Memo Header Orig Order" extends "Sales Cr.Memo Head
     }
 }
 
+tableextension 50268 "JKF Sales Inv Hdr Orig Order" extends "Sales Invoice Header"
+{
+    fields
+    {
+        // Same field number and type as Sales Header for transfer during posting.
+        field(50262; "JKF Original Order No."; Code[20])
+        {
+            Caption = 'Oprindeligt ordrenummer';
+            DataClassification = CustomerContent;
+        }
+    }
+}
+
+pageextension 50268 "JKF Posted Sales Inv Orig Ord" extends "Posted Sales Invoice"
+{
+    layout
+    {
+        addafter("External Document No.")
+        {
+            field("JKF Original Order No."; Rec."JKF Original Order No.")
+            {
+                ApplicationArea = All;
+                Editable = false;
+                ToolTip = 'Angiver det oprindelige ordrenummer for den bogførte salgsfaktura.';
+            }
+        }
+    }
+}
+
+tableextension 50269 "JKF Sales Hdr Arch Orig Order" extends "Sales Header Archive"
+{
+    fields
+    {
+        // Same field number and type as Sales Header for transfer during archiving.
+        field(50262; "JKF Original Order No."; Code[20])
+        {
+            Caption = 'Oprindeligt ordrenummer';
+            DataClassification = CustomerContent;
+        }
+    }
+}
+
+pageextension 50269 "JKF Sales Ord Arch Orig Order" extends "Sales Order Archive"
+{
+    layout
+    {
+        addafter("External Document No.")
+        {
+            field("JKF Original Order No."; Rec."JKF Original Order No.")
+            {
+                ApplicationArea = All;
+                Editable = false;
+                ToolTip = 'Angiver det oprindelige ordrenummer for den arkiverede salgsordre.';
+            }
+        }
+    }
+}
+
 pageextension 50267 "JKF Posted Cr Memo Orig Order" extends "Posted Sales Credit Memo"
 {
     layout

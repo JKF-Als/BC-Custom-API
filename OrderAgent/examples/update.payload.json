@@ -1,0 +1,13 @@
+{
+  "operation": "update",
+  "documentId": "00000000-0000-0000-0000-000000000001",
+  "expectedModifiedAt": "2026-11-16T10:00:00Z",
+  "lines": [
+    {
+      "lineNumber": 10000,
+      "itemNumber": "1000",
+      "quantity": 3,
+      "expectedModifiedAt": "2026-11-16T10:00:00Z"
+    }
+  ]
+}

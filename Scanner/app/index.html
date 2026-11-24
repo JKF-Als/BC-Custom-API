@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="da">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#1f3c88">
+  <meta name="mobile-web-app-capable" content="yes">
+  <title>JKF Lager</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <header id="topbar">
+    <button id="btn-back" class="icon-btn" aria-label="Tilbage" hidden>
+      <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" /></svg>
+    </button>
+    <div class="titles">
+      <div id="subtitle"></div>
+      <div id="title">JKF Lager</div>
+    </div>
+    <div id="counter"></div>
+    <button id="btn-filter" class="icon-btn" aria-label="Filter" hidden>
+      <svg viewBox="0 0 24 24"><path d="M4 5h16l-6 7v6l-4 2v-8z" /></svg>
+    </button>
+  </header>
+  <main id="view"></main>
+  <div id="overlay" hidden></div>
+  <div id="toast" hidden></div>
+  <div id="busy" hidden><div class="spinner"></div></div>
+
+  <script src="vendor/msal-browser.min.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

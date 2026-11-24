@@ -1,0 +1,10 @@
+{
+  "operation": "create",
+  "documentType": "Order",
+  "customerNumber": "10000",
+  "externalDocumentNumber": "PO-123",
+  "orderDate": "2026-11-16",
+  "lines": [
+    { "lineNumber": 10000, "itemNumber": "1000", "quantity": 2 }
+  ]
+}

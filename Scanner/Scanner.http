@@ -1,0 +1,79 @@
+@baseUrl = https://api.businesscentral.dynamics.com/v2.0/67c998ad-883d-4441-8709-30a73ec72cb6/Robex_test/api/jkf/scanner/v1.0
+@company = companies(45342618-9928-ed11-97e8-000d3a652983)
+@token = REPLACE_WITH_ACCESS_TOKEN
+
+### 1. Regnskaber (bruges i appens Indstillinger -> Hent)
+GET {{baseUrl}}/companies
+Authorization: Bearer {{token}}
+
+### 2. Lokationer
+GET {{baseUrl}}/{{company}}/locations
+Authorization: Bearer {{token}}
+
+### 3. Vare (Find vare)
+GET {{baseUrl}}/{{company}}/items?$filter=number%20eq%20%271170132%27
+Authorization: Bearer {{token}}
+
+### 4. Varereference / stregkode
+GET {{baseUrl}}/{{company}}/itemReferences?$filter=itemNumber%20eq%20%271170132%27
+Authorization: Bearer {{token}}
+
+### 5. Placeringsindhold for varen på JKF (skal give 10-07-138-B2 og 10-07-139-A5)
+GET {{baseUrl}}/{{company}}/binContents?$filter=itemNumber%20eq%20%271170132%27%20and%20locationCode%20eq%20%27JKF%27
+Authorization: Bearer {{token}}
+
+### 6. Plukordrer på JKF
+GET {{baseUrl}}/{{company}}/picks?$filter=locationCode%20eq%20%27JKF%27
+Authorization: Bearer {{token}}
+
+### 7. Pluklinjer
+GET {{baseUrl}}/{{company}}/pickLines?$filter=pickNumber%20eq%20%27PL054001%27
+Authorization: Bearer {{token}}
+
+### 8. Log over scanner-transaktioner
+GET {{baseUrl}}/{{company}}/transactions?$orderby=entryNumber%20desc&$top=20
+Authorization: Bearer {{token}}
+
+#####################################################################
+# Herunder BOGFØRES der. Kun i Robex_test – ret bin/antal først.
+#####################################################################
+
+### 9. Uplanlagt flyt: 1 stk 1170132 fra 10-07-138-B2 til 10-07-139-A5
+POST {{baseUrl}}/{{company}}/transactions
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "type": "UnplannedMove",
+  "itemNumber": "1170132",
+  "quantity": 1,
+  "locationCode": "JKF",
+  "binCode": "10-07-138-B2",
+  "newLocationCode": "JKF",
+  "newBinCode": "10-07-139-A5",
+  "deviceId": "HTTP-TEST"
+}
+
+### 10a. Pluk: marker 1 stk plukket på en tag-linje (lineNumber fra kald 7)
+POST {{baseUrl}}/{{company}}/transactions
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "type": "PickLine",
+  "activityNumber": "PL054001",
+  "activityLineNumber": 10000,
+  "quantity": 1,
+  "deviceId": "HTTP-TEST"
+}
+
+### 10b. Pluk: registrér det plukkede
+POST {{baseUrl}}/{{company}}/transactions
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "type": "PickRegister",
+  "activityNumber": "PL054001",
+  "deviceId": "HTTP-TEST"
+}

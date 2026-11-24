@@ -1,0 +1,62 @@
+@baseUrl = https://api.businesscentral.dynamics.com/v2.0/67c998ad-883d-4441-8709-30a73ec72cb6/DK_Test/api/jkf/integration/v1.0/companies(45342618-9928-ed11-97e8-000d3a652983)
+@token = REPLACE_WITH_ACCESS_TOKEN
+@productionOrderId = REPLACE_WITH_ID_FROM_GET
+@routingLineId = REPLACE_WITH_ID_FROM_GET
+@routingEtag = REPLACE_WITH_ODATA_ETAG_FROM_GET
+
+### Find order. Select the Planned/Firm Planned entry to release.
+GET {{baseUrl}}/productionOrders?$filter=number%20eq%20%279363773%27
+Authorization: Bearer {{token}}
+
+### Release the existing order using standard BC logic (WorkDate posting date).
+### Already Released is a no-op. Simulated and Finished are rejected.
+### Standard flushing rules apply. Number/SystemId may change on release.
+### Follow the response Location or query productionOrders again afterward.
+POST {{baseUrl}}/productionOrders({{productionOrderId}})/Microsoft.NAV.release
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{}
+
+### Find released routing operations. Use the returned SystemId, not operationNo alone.
+GET {{baseUrl}}/productionOrderRoutingLines?$filter=productionOrderNo%20eq%20%279363773%27
+Authorization: Bearer {{token}}
+
+### Move the planned start. BC recalculates the planned end and related schedule.
+### Example uses explicit Copenhagen winter offset; change the timestamp as required.
+PATCH {{baseUrl}}/productionOrderRoutingLines({{routingLineId}})
+Authorization: Bearer {{token}}
+Content-Type: application/json
+If-Match: {{routingEtag}}
+
+{
+  "startingDateTime": "2026-11-16T08:00:00+01:00"
+}
+
+### Re-read to obtain the latest ETag and calculated timestamps before another PATCH.
+GET {{baseUrl}}/productionOrderRoutingLines({{routingLineId}})
+Authorization: Bearer {{token}}
+
+### Move the planned end. BC recalculates the planned start.
+PATCH {{baseUrl}}/productionOrderRoutingLines({{routingLineId}})
+Authorization: Bearer {{token}}
+Content-Type: application/json
+If-Match: {{routingEtag}}
+
+{
+  "endingDateTime": "2026-11-16T16:00:00+01:00"
+}
+
+### Notes / sandbox validation before deployment
+# These endpoints update existing records only. No tables/fields are added.
+# Assign JKF PRODUCTION API in addition to normal BC manufacturing permissions.
+# The routing API changes scheduled timestamps, not posted actual production time.
+# Both timestamps can be sent in one PATCH only if standard scheduling preserves
+# both. Otherwise the transaction fails and all scheduling writes roll back.
+# BC standard validation can move related operations, capacity and component dates.
+# Check release on a Firm Planned test order including its lines/components/routes.
+# Check already-released no-op and rejection of Finished/Simulated orders.
+# Check start-only/end-only changes, resulting timestamps and related scheduling.
+# Check incompatible pairs, null timestamps and finished operations roll back.
+# Check stale If-Match is rejected and read-only key fields cannot be patched.
+# Compilation/runtime validation is pending: installed compiler requires .NET 10.

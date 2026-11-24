@@ -1,0 +1,32 @@
+@baseUrl = https://api.businesscentral.dynamics.com/v2.0/67c998ad-883d-4441-8709-30a73ec72cb6/Robex_test/api/jkf/integration/v1.0/companies(45342618-9928-ed11-97e8-000d3a652983)
+@token = REPLACE_WITH_ACCESS_TOKEN
+
+### Install extension. No registration in Web Services is needed.
+# Assign JKF PRODUCTION API plus normal manufacturing permissions.
+POST {{baseUrl}}/productionOrderSchedules
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "number": "9375687",
+  "operationNo": "10",
+  "startingDateTime": "2026-11-26T08:00:00+01:00"
+}
+
+# Response includes actual released number, operationNo, saved timestamps,
+# productionOrderId, routingLineId and status = Released as normal JSON fields.
+# Temporary response buffer only; GET does not return request history.
+# Planned/Firm Planned orders are released through standard BC logic using WorkDate.
+# Already Released orders are scheduled directly; Finished/Simulated are excluded.
+# Missing/ambiguous orders or operations and finished operations are rejected.
+# startingDateTime is binding. endingDateTime is calculated by BC (setup/run time
+# x quantity + calendar) and returned in the response; any input value is ignored.
+# If BC would move the start (e.g. outside working hours), the request is rejected.
+# Times are converted to Danish time (Romance Standard Time) in code, so the
+# Entra app's UTC session does not shift the plan. Send an explicit offset or Z.
+# All prod. order lines get Planning Flexibility = None.
+# Standard BC validation can affect related operations/capacity/component dates.
+# Explicit COMMIT calls are ignored. Verify rollback with installed subscribers.
+# Before production, test release, already Released, missing/ambiguous operations,
+# invalid timestamps and rollback on non-working start times in Robex_test.
+# Send an explicit UTC offset or Z.
