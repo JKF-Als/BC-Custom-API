@@ -14,6 +14,7 @@ permissionset 50399 "JKF CUSTOM APIS"
         tabledata "JKF Requisition Line Count" = RIMD,
 
         tabledata "Buhler Create Packing Note Buf" = RIMD,
+        tabledata "Buhler Verify Packing Note Buf" = RIMD,
         tabledata "Buhler Update Whse Shpt Buf" = RIMD,
         tabledata "JKF Customer Contact Buffer" = RIMD;
 }
